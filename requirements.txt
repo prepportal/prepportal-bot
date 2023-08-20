@@ -3,3 +3,4 @@ Pyrogram
 requests
 tgcrypto
 apscheduler
+python-dotenv
