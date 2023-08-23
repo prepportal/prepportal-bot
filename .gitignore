@@ -162,3 +162,4 @@ cython_debug/
 
 # pyrogram
 *.session
+logs.txt

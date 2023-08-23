@@ -1,7 +1,10 @@
 import json
-import time
 import requests
 from bs4 import BeautifulSoup
+from apscheduler.schedulers.background import BackgroundScheduler
+from PrepPortalBot import bot
+from PrepPortalBot.config import CHANNEL_ID
+
 
 def extract_results(page_content):
     soup = BeautifulSoup(page_content, "html.parser")
@@ -45,7 +48,6 @@ def load_results():
 
 def check_for_new_results():
     current_results = load_results()
-
     if page_content := get_results():
         new_results = extract_results(page_content)
         if added_results := {
@@ -57,3 +59,19 @@ def check_for_new_results():
             return added_results
         else:
             return None
+
+def get_notifications():
+    req = requests.get("https://ktuapi.vercel.app/get?limit=10").json()
+
+
+def check_results1():
+    print("Checking for new results")
+    if res := check_for_new_results():
+        for k,v in res.items():
+            bot.send_message(CHANNEL_ID, f"New result for {k} : {v}")
+    else:
+        print("No new results")
+
+scheduler = BackgroundScheduler(timezone="asia/kolkata")
+scheduler.add_job(check_results1, "interval", minutes=2)
+scheduler.start()
