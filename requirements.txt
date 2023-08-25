@@ -12,3 +12,4 @@ uvloop
 pillow
 apscheduler
 requests
+PyGithub
