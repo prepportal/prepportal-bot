@@ -3,7 +3,7 @@ from pyrogram import __version__ as __pyro_version__
 
 __major__ = 0
 __minor__ = 0
-__micro__ = 2
+__micro__ = 3
 
 
 def get_version() -> str:
