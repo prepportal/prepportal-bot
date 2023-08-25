@@ -3,7 +3,8 @@ import requests
 from bs4 import BeautifulSoup
 from apscheduler.schedulers.background import BackgroundScheduler
 from PrepPortalBot import bot
-from PrepPortalBot.config import CHANNEL_ID
+from PrepPortalBot.config import CHANNEL_ID, GITHUB_TOKEN
+from PrepPortalBot.helpers.git import Github_Helper
 
 
 def extract_results(page_content):
@@ -22,6 +23,8 @@ def extract_results(page_content):
 def save_results(results):
     with open("results.json", "w") as file:
         json.dump(results, file, indent=4)
+    git = Github_Helper(GITHUB_TOKEN, 'prepportal', 'prepportal-bot')
+    git.update_file("results.json", "main", "Auto: Updated with new result values")
         
 def get_results():
     session = requests.Session()
@@ -54,7 +57,7 @@ def check_for_new_results():
             for result, details in new_results.items()
             if result not in current_results
         }:
-            save_results(current_results)
+            save_results(new_results)
             return added_results
         else:
             return None
