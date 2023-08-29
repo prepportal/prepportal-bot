@@ -40,7 +40,7 @@ async def stats(_, message: Message):
     upload= get_readable_bytes(psutil.net_io_counters().bytes_sent)
     download= get_readable_bytes(psutil.net_io_counters().bytes_recv) 
         
-    cpu_percentage = psutil.cpu_percent()
+    cpu_percentage = psutil.cpu_percent() if psutil.cpu_percent() > 1 else 1
     cpu_count = psutil.cpu_count()
     
     ram_percentage = psutil.virtual_memory().percent
@@ -57,7 +57,7 @@ async def stats(_, message: Message):
     start = datetime.now()
     msg = await message.reply_photo(photo="https://te.legra.ph/file/30a82c22854971d0232c7.jpg", caption=caption, quote=True)     
     end = datetime.now()
-    print(cpu_percentage)
+
     draw_progressbar(243, int(cpu_percentage))
     draw.text((225,153), f"( {cpu_count} core, {cpu_percentage}% )", (255, 255, 255), font=IronFont)	
 
