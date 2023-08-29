@@ -14,6 +14,7 @@ from pyrogram.types import Message, InputMediaPhoto
 from PrepPortalBot import BotStartTime
 from PrepPortalBot.helpers.filters import sudo_cmd
 from PrepPortalBot.helpers.functions import get_readable_bytes, get_readable_time
+from logging import Logger
 
 
 @Client.on_message(filters.command(["stats", "serverstats"]) & sudo_cmd)
@@ -56,7 +57,7 @@ async def stats(_, message: Message):
     start = datetime.now()
     msg = await message.reply_photo(photo="https://te.legra.ph/file/30a82c22854971d0232c7.jpg", caption=caption, quote=True)     
     end = datetime.now()
-                    
+    print(cpu_percentage)
     draw_progressbar(243, int(cpu_percentage))
     draw.text((225,153), f"( {cpu_count} core, {cpu_percentage}% )", (255, 255, 255), font=IronFont)	
 
