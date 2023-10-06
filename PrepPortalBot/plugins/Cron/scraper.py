@@ -70,7 +70,7 @@ def check_results1():
     print("Checking for new results")
     if res := check_for_new_results():
         for k,v in res.items():
-            bot.send_message(chat_id=CHANNEL_ID, text=f"New result for {k} : {v}")
+            bot.send_message(chat_id=CHANNEL_ID, text=f"<b>New result has arrived!</b> <br> <b>{k}</b> : <a href='https://ktu.edu.in/{v}'>Link</a>", parse_mode='HTML')
     else:
         print("No new results")
 
