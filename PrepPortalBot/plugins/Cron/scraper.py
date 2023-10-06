@@ -3,6 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 from apscheduler.schedulers.background import BackgroundScheduler
 from PrepPortalBot import bot
+from pyrogram import enums
 from PrepPortalBot.config import CHANNEL_ID, GITHUB_TOKEN
 from PrepPortalBot.helpers.git import Github_Helper
 
@@ -70,7 +71,7 @@ def check_results1():
     print("Checking for new results")
     if res := check_for_new_results():
         for k,v in res.items():
-            bot.send_message(chat_id=CHANNEL_ID, text=f"<b>New result has arrived!</b> <br> <b>{k}</b> : <a href='https://ktu.edu.in/{v}'>Link</a>", parse_mode='HTML')
+            bot.send_message(chat_id=CHANNEL_ID, text=f"<b>New result has arrived!</b> <br> <b>{k}</b> : <a href='https://ktu.edu.in/{v}'>Link</a>", parse_mode=enums.ParseMode.HTML)
     else:
         print("No new results")
 
